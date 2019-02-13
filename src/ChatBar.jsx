@@ -9,8 +9,9 @@ export default class ChatBar extends Component {
   }
   createNewMessage(event){
     if(event.key==="Enter"){
-      console.log("we are pressed enter in the chatbar")
-      this.props.addMessage("hello");
+      //console.log("we are pressed enter in the chatbar")
+      this.props.addMessage(event.target.value)
+      event.target.value = '';
     }
   }
 

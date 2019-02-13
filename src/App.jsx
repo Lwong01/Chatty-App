@@ -27,9 +27,16 @@ export default class App extends Component {
   }
 
   addMessage(newMessage) {
-    console.log("we are in the App component");
-    console.log(newMessage);
-    //this.setState({ messages: messages })
+    const messages = this.state.messages.concat({
+      id: Math.random(),
+      username: this.state.currentUser.name,
+      content: newMessage
+    });
+
+    console.log(messages);
+    // console.log("we are in the App component");
+    // console.log(newMessage);
+    this.setState({ messages: messages })
   }
 
   componentDidMount() {
