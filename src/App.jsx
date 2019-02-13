@@ -33,6 +33,8 @@ export default class App extends Component {
       content: newMessage
     });
 
+    this.webSocket.send(this.state.currentUser.name + " said " + newMessage);
+
     console.log(messages);
     // console.log("we are in the App component");
     // console.log(newMessage);
@@ -40,6 +42,11 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.webSocket = new WebSocket("ws://localhost:3001");
+    this.webSocket.onopen = (event) =>{
+      console.log("Connected to server");
+
+    }
     console.log("componentDidMount <App />");
     setTimeout(() => {
       console.log("Simulating incoming message");
