@@ -1,6 +1,8 @@
-Chatter is a SPA (single-page application) using React, Websockets, HTML, CSS, UUID.
+#Chatter is a SPA (single-page application) using React, Websockets, HTML, CSS, UUID.
 
-Users can change their name and start chatting with anyone who's online. They can also see how many users are online.
+##Users can change their name and start chatting with anyone who's online. They can also see how many users are online.
+
+###Changing the User Name:
 
 !["Changing a new user"](https://github.com/Lwong01/React/blob/master/docs/Change%20User%20name.png)
 
