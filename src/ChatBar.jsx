@@ -16,18 +16,21 @@ export default class ChatBar extends Component {
   }
 
   createUser = (event) => {
-
+    if (event.key === "Enter") {
       //console.log("we are pressed enter in the chatbar")
       this.props.changeUser(event.target.value)
 
+    }
 
-}
+    }
+
+
 
   render() {
     return (
     <div>
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your Name (Optional)" onBlur={this.createUser} />
+        <input className="chatbar-username" placeholder="Your Name (Optional)" onKeyPress={this.createUser} />
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress = {this.createNewMessage} />
       </footer>
     </div>

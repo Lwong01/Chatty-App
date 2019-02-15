@@ -20,6 +20,7 @@ export default class App extends Component {
   addMessage(newMessage) {
     //Creating a variable that has an objext
     const msg = {
+      type: "postMessage",
       username: this.state.currentUser.name,
       content: newMessage
     };
@@ -27,23 +28,45 @@ export default class App extends Component {
   }
 
   changeUser(newUser){
+
+      const createdUser = {
+        type: "postNotification",
+        content: this.state.currentUser.name + " has been changed to " + newUser
+      }
+
     this.setState({
-      currentUser: {name: newUser}
+        currentUser: {name: newUser}
     })
+    this.webSocket.send(JSON.stringify(createdUser));
   }
 
   componentDidMount() {
     this.webSocket = new WebSocket("ws://localhost:3001");
     this.webSocket.onopen = (event) =>{
       console.log("Connected to server");
-      this.webSocket.onmessage = (event) => {
 
-        //receive the messages from the websocket and add it to the current messages
-        //and then set theState to refresh the component.
 
-        const parsed = JSON.parse(event.data);
-        const messages = this.state.messages.concat(parsed);
-        this.setState({ messages: messages })
+
+      }
+    this.webSocket.onmessage = (event) => {
+
+      //receive the messages from the websocket and add it to the current messages
+      //and then set theState to refresh the component.
+      const parsed = JSON.parse(event.data);
+
+      switch (parsed.type) {
+        case "incomingMessage":
+          const messages = this.state.messages.concat(parsed);
+          this.setState({ messages: messages })
+          break;
+        case "incomingNotification":
+          const notification = this.state.messages.concat(parsed);
+          this.setState({messages:notification})
+
+          break;
+        default:
+          // show an error in the console if the message type is unknown
+          throw new Error("Unknown event type " + parsed.type);
       }
     }
     console.log("componentDidMount <App />");
