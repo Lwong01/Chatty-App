@@ -7,7 +7,10 @@ export default class ChatBar extends Component {
 
     this.createNewMessage = this.createNewMessage.bind(this);
   }
-  createNewMessage(event){
+
+  // new message will be sent to the parent when we press enter
+  // after pressing enter, the message box will clear the message
+    createNewMessage(event){
     if(event.key==="Enter"){
       //console.log("we are pressed enter in the chatbar")
       this.props.addMessage(event.target.value)
@@ -15,6 +18,8 @@ export default class ChatBar extends Component {
     }
   }
 
+  // create user but pressing enter
+  // the new user will be passed on to the parent
   createUser = (event) => {
     if (event.key === "Enter") {
       //console.log("we are pressed enter in the chatbar")
@@ -24,8 +29,7 @@ export default class ChatBar extends Component {
 
     }
 
-
-
+  //
   render() {
     return (
     <div>

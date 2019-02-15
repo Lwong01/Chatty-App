@@ -20,6 +20,7 @@ export default class App extends Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
+  //creating a new message
   addMessage(newMessage) {
     //Creating a variable that has an objext
     const msg = {
@@ -30,6 +31,7 @@ export default class App extends Component {
     this.webSocket.send(JSON.stringify(msg)); //you need to send it as a string because you can only send strings and NOTHING else. Then you parse it back into an object when the server gets it.
   }
 
+  //changing the user. It will show that you have changed the user on the chat box as well.
   changeUser(newUser){
 
       const createdUser = {
@@ -37,15 +39,12 @@ export default class App extends Component {
         content: this.state.currentUser.name + " has been changed to " + newUser
       }
 
+  //once you change the user, we will set the current user as the new user
     this.setState({
         currentUser: {name: newUser}
     })
     this.webSocket.send(JSON.stringify(createdUser));
   }
-
-
-
-
 
   componentDidMount() {
     this.webSocket = new WebSocket("ws://localhost:3001");
@@ -53,13 +52,14 @@ export default class App extends Component {
       console.log("Connected to server");
     };
 
+    //we get the message through the onmessage
     this.webSocket.onmessage = (event) => {
 
       //receive the messages from the websocket and add it to the current messages
       //and then set theState to refresh the component.
       const parsed = JSON.parse(event.data);
 
-      //console.log("welcome ",event);
+
       switch (parsed.type) {
         case "incomingMessage":
           const messages = this.state.messages.concat(parsed);
@@ -82,25 +82,15 @@ export default class App extends Component {
       }
     }
     console.log("componentDidMount <App />");
-    // setTimeout(() => {
-    //   console.log("Simulating incoming message");
-    //   // Add a new message to the list of messages in the data store
-    //   const newMessage = { id: 3, username: "Michelle", content: "Hello there!" };
-    //   const messages = this.state.messages.concat(newMessage)
-    //   // Update the state of the app component.
-    //   // Calling setState will trigger a call to render() in App and all child components.
-    //   this.setState({ messages: messages })
-    // }, 3000);
-
 
   }
 
   render() {
     return (
       <div>
-            <div className="counter">
-              {this.state.numbers} user online
-            </div>
+          <div className="counter">
+            {this.state.numbers} user online
+          </div>
         <div>
           <MessageList messages={this.state.messages} />
         </div>
