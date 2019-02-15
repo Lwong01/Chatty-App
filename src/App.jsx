@@ -11,8 +11,9 @@ export default class App extends Component {
     this.state = {
       currentUser: {
        name: "Bob"},
+
        messages: [],
-       connectedUsers: 0
+       numbers: 0
   }
 
     this.addMessage = this.addMessage.bind(this);
@@ -70,7 +71,11 @@ export default class App extends Component {
 
           break;
         case "incomingUsers":
-          console.log("Number of users: ",parsed.clientsNumber);
+        console.log(parsed.clientsNumber);
+         this.setState({numbers: Number(parsed.clientsNumber)})
+         console.log(this.state);
+        //console.log("Number of users: ",parsed.clientsNumber);
+          break;
         default:
           // show an error in the console if the message type is unknown
           throw new Error("Unknown event type " + parsed.type);
@@ -93,6 +98,9 @@ export default class App extends Component {
   render() {
     return (
       <div>
+            <div className="counter">
+              {this.state.numbers} user online
+            </div>
         <div>
           <MessageList messages={this.state.messages} />
         </div>
