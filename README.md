@@ -25,11 +25,11 @@ npm run lint
 ## Changing The User Name:
 !["Changing a new user"](https://github.com/Lwong01/React/blob/master/docs/Change%20User%20name.png)
 
-##Add New Message
+## Add New Message
 !["Adding a new message"](https://github.com/Lwong01/React/blob/master/docs/Create%20New%20Message.png)
 
-##Add An Additional User
+## Add An Additional User
 !["Adding an additional user"](https://github.com/Lwong01/React/blob/master/docs/Add%20another%20user.png)
 
-##Conversation between both people
+## Conversation between both people
 !["Conversation between users"](https://github.com/Lwong01/React/blob/master/docs/Conversation%20between%20user.png)
