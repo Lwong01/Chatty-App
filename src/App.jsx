@@ -6,11 +6,13 @@ const uuidv1 = require('uuid/v1');
 export default class App extends Component {
   constructor(props) {
     super(props);
+
     // this is the *only* time you should assign directly to state:
     this.state = {
       currentUser: {
        name: "Bob"},
-       messages: []
+       messages: [],
+       connectedUsers: 0
   }
 
     this.addMessage = this.addMessage.bind(this);
@@ -40,20 +42,23 @@ export default class App extends Component {
     this.webSocket.send(JSON.stringify(createdUser));
   }
 
+
+
+
+
   componentDidMount() {
     this.webSocket = new WebSocket("ws://localhost:3001");
     this.webSocket.onopen = (event) =>{
       console.log("Connected to server");
+    };
 
-
-
-      }
     this.webSocket.onmessage = (event) => {
 
       //receive the messages from the websocket and add it to the current messages
       //and then set theState to refresh the component.
       const parsed = JSON.parse(event.data);
 
+      //console.log("welcome ",event);
       switch (parsed.type) {
         case "incomingMessage":
           const messages = this.state.messages.concat(parsed);
@@ -64,6 +69,8 @@ export default class App extends Component {
           this.setState({messages:notification})
 
           break;
+        case "incomingUsers":
+          console.log("Number of users: ",parsed.clientsNumber);
         default:
           // show an error in the console if the message type is unknown
           throw new Error("Unknown event type " + parsed.type);
@@ -89,6 +96,7 @@ export default class App extends Component {
         <div>
           <MessageList messages={this.state.messages} />
         </div>
+
         <div>
           <ChatBar username={this.state.currentUser.name} addMessage={this.addMessage} changeUser={this.changeUser} />
         </div>
