@@ -13,9 +13,9 @@ This boilerplate project includes React ESLint configuration.
 npm run lint
 ```
 ### Instructions
-run npm i to install dependecies
-run npm start inside ChattyApp folder and run npm start on chatty_server at the same time
-Go to localhost:3000 in multiple browser to chat!
+* run npm i to install dependecies
+* run npm start inside ChattyApp folder and run npm start on chatty_server at the same time
+* Go to localhost:3000 in multiple browser to chat!
 
 ### Dependencies
 
